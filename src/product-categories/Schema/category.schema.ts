@@ -1,8 +1,8 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { Document, HydratedDocument, Types } from 'mongoose';
 
 @Schema({ versionKey: false })
-class Category {
+class Category extends Document {
   @Prop()
   id: number;
 

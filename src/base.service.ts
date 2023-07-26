@@ -1,21 +1,44 @@
-import { Model } from 'mongoose';
+import { Document, Model, QueryOptions } from 'mongoose';
 
-export abstract class BaseService<T> {
-  private baseService: Model<T>;
+export abstract class BaseService<T extends Document> {
+  constructor(private readonly model: Model<T>) {}
 
-  protected constructor(baseService: Model<T>) {
-    this.baseService = baseService;
-  }
-
-  async create(data): Promise<T> {
-    return await this.baseService.create(data);
+  async create(doc): Promise<any> {
+    const createedDoc = new this.model(doc);
+    return await createedDoc.save();
   }
 
   async findAll(): Promise<T[]> {
-    return await this.baseService.find().exec();
+    return await this.model.find().exec();
   }
 
-  async findByCondition(): Promise<T[]> {
-    return await this.baseService.find({}).populate('parent_id').exec();
+  async findById(id: string, option?: QueryOptions): Promise<T> {
+    return this.model.findById(id, option);
+  }
+
+  async findByCondition(
+    filter,
+    field?: any | null,
+    option?: any | null,
+    populate?: any | null,
+  ) {
+    return await this.model
+      .findOne(filter, field, option)
+      .populate(populate)
+      .exec();
+  }
+
+  async findAllByCondition(
+    filter,
+    field?: any | null,
+    option?: any | null,
+    p?: number,
+    s?: number,
+  ): Promise<T[]> {
+    return await this.model
+      .find(filter, field, option)
+      .skip((p - 1) * s)
+      .limit(s)
+      .exec();
   }
 }

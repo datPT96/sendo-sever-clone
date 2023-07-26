@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Document, HydratedDocument } from 'mongoose';
 
 export class PromotionSub {
   @Prop()
@@ -11,7 +11,7 @@ export class PromotionSub {
 }
 
 @Schema()
-export class ProductStore {
+export class ProductStore extends Document {
   @Prop()
   product_id: number;
   @Prop()
@@ -36,8 +36,12 @@ export class ProductStore {
   shop_warehouse_city_id?: number;
   @Prop()
   shop_warehouse_city?: string;
+  @Prop({ default: false })
+  is_using_instant?: boolean;
   @Prop()
-  ship_method?: string[];
+  is_using_in_day?: boolean;
+  @Prop()
+  is_using_standard?: boolean;
   @Prop()
   thumbnail_url: string;
   @Prop()

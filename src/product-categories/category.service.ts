@@ -15,9 +15,9 @@ export class CategoryService extends BaseService<Category> {
     return await this.create(data);
   }
 
-  async getNestCategory() {
-    return await this.findByCondition();
-  }
+  // async getNestCategory() {
+  //   return await this.findByCondition();
+  // }
 
   async getAll() {
     try {
