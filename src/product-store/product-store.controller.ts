@@ -15,6 +15,17 @@ export interface Params {
   max_final_price?: number | null;
   rating_percent?: number | null;
   has_video?: boolean | null;
+  is_combo_discount?: number | null;
+  is_shipping_discount?: number | null;
+  is_promotion?: number | null;
+  is_installment?: number | null;
+  is_pay_later?: number | null;
+  promotion_app?: number | null;
+  is_quantity_discount?: number | null;
+  is_mega_voucher?: number | null;
+  is_flash_sale?: number | null;
+  campaign_id?: string | null;
+  sort?: string | null;
   p?: number;
   s?: number;
 }
@@ -28,14 +39,13 @@ export class ProductStoreController {
     return await this.productService.getAllProducts();
   }
 
-  @Get('product-search')
-  async findByName(@Query('name') name?: string) {
-    return await this.productService.findByName(name);
-  }
+  // @Get('product-search')
+  // async findByName(@Query('name') name?: string) {
+  //   return await this.productService.findByName(name);
+  // }
 
   @Get('filter')
   async getListFilter(@Query() params: Params) {
-    console.log(params);
     return await this.productService.getListFilter(params);
   }
 }

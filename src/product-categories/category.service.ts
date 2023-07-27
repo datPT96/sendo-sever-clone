@@ -48,6 +48,7 @@ export class CategoryService extends BaseService<Category> {
         id: cat.id,
         name: cat.name,
         url_path: cat.url_path,
+        is_selected: cat.is_selected,
         sub_category: this.nestedCategories(categories, cat._id),
       });
     }

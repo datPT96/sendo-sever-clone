@@ -14,6 +14,9 @@ class Category extends Document {
 
   @Prop()
   parent_id: Types.ObjectId;
+
+  @Prop()
+  is_selected: boolean;
 }
 
 type CategoryDocument = HydratedDocument<Category>;

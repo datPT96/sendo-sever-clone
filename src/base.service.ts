@@ -8,6 +8,10 @@ export abstract class BaseService<T extends Document> {
     return await createedDoc.save();
   }
 
+  async countDocument(filter): Promise<any> {
+    return await this.model.countDocuments(filter);
+  }
+
   async findAll(): Promise<T[]> {
     return await this.model.find().exec();
   }
@@ -30,6 +34,7 @@ export abstract class BaseService<T extends Document> {
 
   async findAllByCondition(
     filter,
+    sort,
     field?: any | null,
     option?: any | null,
     p?: number,
@@ -39,6 +44,6 @@ export abstract class BaseService<T extends Document> {
       .find(filter, field, option)
       .skip((p - 1) * s)
       .limit(s)
-      .exec();
+      .sort(sort);
   }
 }
